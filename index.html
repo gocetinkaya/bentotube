@@ -25,6 +25,7 @@
     --A-gut-w: var(--gut);
     --B-gut-h: var(--gut);
     --P-gut-w: var(--gut);
+    --A-gh-h: 8px; /* Specific height for A-mode horizontal handle */
 
     --bg: #0e0e10;
     --panel: #000;
@@ -48,6 +49,11 @@
     --twitch-text-color: #d4aaff;
     --kick-text-color: #b1ff85;
     --vimeo-text-color: #85e2ff;
+
+    --youtube-border-color: var(--youtube-text-color);
+    --twitch-border-color: var(--twitch-text-color);
+    --kick-border-color: var(--kick-text-color);
+    --vimeo-border-color: var(--vimeo-text-color);
   }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;background:var(--bg);color:#ddd;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
@@ -182,7 +188,7 @@
     align-items: flex-end;
     gap: 6px;
   }
-  .toolbar, .copy-hover-area {
+  .toolbar, .copy-hover-area, #restore-container {
     display: flex;
     align-items: center;
     border-radius: 999px;
@@ -191,10 +197,6 @@
     background: transparent;
     border: 1px solid transparent;
     transition: all .25s;
-  }
-  #restore-container {
-    padding: 6px;
-    height: 48px;
   }
   .toolbar {
     padding-right: 6px;
@@ -329,8 +331,16 @@
     border-radius: 999px;
     margin: 2px;
   }
-  .chat-tab { flex: 1 1 50%; padding: 10px 6px; display: flex; align-items: center; justify-content: center; background: transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #888; user-select:none; z-index: 2; transition: transform .2s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-tab { flex: 1 1 50%; padding: 10px 6px; display: flex; align-items: center; justify-content: center; background: transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #888; user-select:none; z-index: 2; transition: transform .2s ease; white-space: nowrap; overflow: hidden; position: relative;}
   
+  .chat-tab > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+  }
+
   .chat-tab.active.platform-youtube { color: var(--youtube-text-color); }
   .chat-tab.active.platform-twitch { color: var(--twitch-text-color); }
   .chat-tab.active.platform-kick { color: var(--kick-text-color); }
@@ -364,7 +374,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: absolute;
+      inset: 0;
       transition: transform .3s ease, opacity .3s ease;
+      opacity: 1;
   }
   .chat-tab-icon {
       width: 1.2em;
@@ -593,7 +606,7 @@
   .A,.B,.P{height:100%;display:grid;gap:var(--gut)}
   .A{grid-template-columns:minmax(0,1fr) var(--gut) minmax(0,var(--A-chat-w));grid-template-rows: 1fr;grid-template-areas:"A-left A-gv A-chat"}
   .A.flip{grid-template-columns:minmax(0,var(--A-chat-w)) var(--gut) minmax(0,1fr);grid-template-areas:"A-chat A-gv A-left"}
-  .A-left{display:grid;grid-template-rows:minmax(0, calc(var(--A-top-fr) * (100% - var(--gut)))) auto minmax(0, calc((1 - var(--A-top-fr)) * (100% - var(--gut))));}
+  .A-left{display:grid;grid-template-rows:minmax(0, calc(var(--A-top-fr) * (100% - var(--A-gh-h)))) var(--A-gh-h) minmax(0, calc((1 - var(--A-top-fr)) * (100% - var(--A-gh-h))));}
   .A .A-left{grid-area:A-left}
   .A .A-gv{grid-area:A-gv}
   .A .A-chat{grid-area:A-chat}
@@ -606,8 +619,8 @@
   .B .B-chat{grid-area:B-chat}
   .B .B-gv{grid-area:B-gv}
   .B .B-gh{grid-area:B-gh}
-  .P{position:relative;grid-template-columns:minmax(0,1fr) var(--gut) minmax(0,var(--P-chat-w));grid-template-areas:"P-left P-gv P-chat"}
-  .P.flip{grid-template-columns:minmax(0,var(--P-chat-w)) var(--gut) minmax(0,1fr);grid-template-areas:"P-chat P-gv P-left"}
+  .P{position:relative;grid-template-columns:minmax(0,calc(100% - var(--P-chat-w) - var(--P-gut-w))) var(--P-gut-w) minmax(0,var(--P-chat-w));grid-template-areas:"P-left P-gv P-chat"}
+  .P.flip{grid-template-columns:minmax(0,var(--P-chat-w)) var(--P-gut-w) minmax(0,calc(100% - var(--P-chat-w) - var(--P-gut-w)));grid-template-areas:"P-chat P-gv P-left"}
   .P .P-left{grid-area:P-left}
   .P .P-gv{grid-area:P-gv}
   .P .P-chat{grid-area:P-chat}
@@ -637,9 +650,9 @@
   .gh.chat-closed,.gv.chat-closed{pointer-events:none}
   .gh.chat-closed::before,.gv.chat-closed::before{opacity:0!important;display:none}
   .chat-closed .dotsH,.chat-closed .dotsV{display:none!important;visibility:hidden}
-  .dotsH,.dotsV{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:block;background:#303030}
-  .dotsH{width:26px;height:10px;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
-  .dotsV{width:10px;height:26px;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
+  .dotsH,.dotsV{position:absolute;left:50%;top:50%;display:block;background:#303030}
+  .dotsH{width:26px;height:10px;transform:translate(-50%, calc(-50% + 1px));mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
+  .dotsV{width:10px;height:26px;transform:translate(-50%, -50%);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
 
 </style>
 </head>
@@ -708,7 +721,7 @@
         <div class="pip" id="pipWin">
           <div class="panel videoPanel" id="P-mini" data-panel-id="P_min"></div>
           <button class="pip-replace" id="pipReplace" title="Swap PiP video">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M8 7h10M18 7l-3-3M18 7l-3 3M16 17H6M6 17l3-3M6 17l3 3" stroke="#fff"/></svg>
+            <svg viewBox="0 D 0 24 24" fill="none"><path d="M8 7h10M18 7l-3-3M18 7l-3 3M16 17H6M6 17l3-3M6 17l3 3" stroke="#fff"/></svg>
           </button>
           <div class="pip-ui"><div class="pip-grip" id="pipGrip"></div></div>
           <div class="pip-arc" id="pipArc" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M38 22 A16 16 0 0 1 22 38"/></svg></div>
@@ -1211,4 +1224,5 @@
 </script>
 </body>
 </html>
+
 
