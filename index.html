@@ -39,12 +39,14 @@
     --accent:#4d4d50;
     --add-btn-color: #d2f286;
     --flash-color: #d2f286;
+    --settings-accent-color: #c7e67f;
+
 
     --youtube-color: rgba(255, 0, 0, 0.2);
     --twitch-color: rgba(145, 70, 255, 0.2);
     --kick-color: rgba(82, 255, 0, 0.15);
     --vimeo-color: rgba(26, 183, 234, 0.2);
-   
+    
     --youtube-text-color: #ff8a8a;
     --twitch-text-color: #d4aaff;
     --kick-text-color: #b1ff85;
@@ -117,47 +119,6 @@
   }
   .paste-btn:hover { background: var(--btn-hov); }
 
-  .autoplay-control {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: #aaa;
-      width: 100%;
-      padding: 0 12px;
-  }
-  .autoplay-switch {
-      position: relative;
-      display: inline-block;
-      width: 38px;
-      height: 22px;
-  }
-  .autoplay-switch input { display: none; }
-  .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #333;
-      transition: .4s;
-      border-radius: 22px;
-  }
-  .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-  }
-  input:checked + .slider { background-color: var(--add-btn-color); }
-  input:checked + .slider:before { transform: translateX(16px); }
-
   .video-input-form button[type="submit"] {
     width: 100%;
     height: 44px;
@@ -216,6 +177,7 @@
   .revealWrap{display:flex;overflow:hidden;width:0;gap:6px;transition:width .2s,opacity .25s;opacity:0}
   .toolbar:not(.no-reveal):hover .revealWrap.has1{width:36px;opacity:1}
   .toolbar:not(.no-reveal):hover .revealWrap.has2{width:78px;opacity:1}
+  .toolbar:not(.no-reveal):hover .revealWrap.has3{width:120px;opacity:1}
   .tb-btn{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;cursor:pointer;background:var(--btn-bg);border:1px solid var(--btn-br);transition:background .15s,border-color .15s, color .2s, transform .2s; color: var(--icon);}
   .tb-btn .tb-icon { transition: color .15s; }
   .tb-btn .tb-icon.flash { color: var(--flash-color); }
@@ -234,7 +196,7 @@
   .tb-icon svg{width:100%;height:100%}
   #icoLayout svg rect, #icoLayout svg path { fill: var(--icon); }
   #icoRestore svg path { fill: var(--icon); }
-  .tb-icon.stroked svg path, .tb-icon.stroked svg rect, .tb-icon.stroked svg polyline, .tb-icon.stroked svg line { stroke: currentColor; fill: none; }
+  .tb-icon.stroked svg path, .tb-icon.stroked svg rect, .tb-icon.stroked svg polyline, .tb-icon.stroked svg line, .tb-icon.stroked svg circle { stroke: currentColor; fill: none; }
   .tb-icon.filled svg path, .tb-icon.filled svg rect { fill: currentColor; stroke: none; }
  
   /* Copy Button & Hover Area */
@@ -295,7 +257,7 @@
     color: var(--icon);
   }
   .panel:hover .edit-video-btn {
-    opacity: 0.5;
+    opacity: 1;
     pointer-events: auto;
   }
   .edit-video-btn:hover {
@@ -316,9 +278,13 @@
   .B-right .edit-video-btn, .P.flip #P-big .edit-video-btn { top: 50%; left: 0; --ox: 18px; --ox-hover: 24px; transform: translate(var(--ox), -50%) scale(1); }
   .B-right .edit-video-btn:hover, .P.flip #P-big .edit-video-btn:hover { transform: translate(var(--ox-hover), -50%) scale(1.333); }
   
-  #P-mini .edit-video-btn { top: 8px; left: 8px; right: auto; --ox:0; --oy:0; transform: none; }
+  #P-mini .edit-video-btn { top: 12px; right: 12px; left: auto; --ox:0; --oy:0; transform: scale(1); }
   #P-mini .edit-video-btn:hover { transform: scale(1.333); }
 
+  .pip:hover #P-mini .edit-video-btn {
+      opacity: 1;
+      pointer-events: auto;
+  }
 
   /* Chat Tabs */
   .chat-container { display: flex; flex-direction: column; width: 100%; height: 100%; background: transparent; gap: var(--gut); }
@@ -630,10 +596,10 @@
   .pip{position:absolute;left:var(--pip-x);top:var(--pip-y);width:var(--pip-w);aspect-ratio:16/9;border-radius:40px;overflow:hidden;background:#000;box-shadow:0 8px 28px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.07) inset;z-index:200;}
   .pip .videoPanel{border-radius:40px}
   #P-mini{position:absolute;inset:0}
-  .pip-ui,.pip-replace,.pip-arc{opacity:0;transition:opacity .15s ease;color:#fff}
-  .pip:hover .pip-replace,.pip:hover .pip-arc{opacity:.5}
+  .pip-ui,.pip-arc{opacity:0;transition:opacity .15s ease;color:#fff}
+  .pip:hover .pip-arc{opacity:.5}
   .pip:hover .pip-ui{opacity:1}
-  .pip .pip-replace:hover,.pip .pip-replace:active,.pip .pip-arc:hover,.pip .pip-arc:active{opacity:1}
+  .pip .pip-arc:hover,.pip .pip-arc:active{opacity:1}
   .pip-ui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;pointer-events:none;z-index:4}
   .pip-grip{margin:8px auto 0;width:64px;height:7px;border-radius:999px;background:rgba(255,255,255,.5);box-shadow:0 1px 2px rgba(0,0,0,.35);cursor:grab;position:relative;pointer-events:auto;transition:background .15s ease}
   .pip .pip-grip:hover,.pip .pip-grip:active{background:rgba(255,255,255,1)}
@@ -641,9 +607,44 @@
   .pip-arc{position:absolute;right:12px;bottom:12px;width:52px;height:52px;pointer-events:auto;cursor:nwse-resize;z-index:5}
   .pip-arc svg{width:100%;height:100%}
   .pip-arc path{stroke:#fff;stroke-width:4.7;stroke-linecap:round;fill:none}
-  .pip-replace{position:absolute;right:8px;top:8px;width:54px;height:54px;display:grid;place-items:center;cursor:pointer;z-index:6;background:transparent;border:none;padding:0}
-  .pip-replace svg{width:38px;height:38px}
-  .pip-replace path{stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+  .pip-action-btn {
+    position: absolute;
+    width: 31px; height: 31px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    cursor: pointer;
+    background:rgba(20,20,22,.95);
+    border: 1px solid rgba(255,255,255,.22);
+    box-shadow:0 2px 6px rgba(0,0,0,.45);
+    z-index: 210; /* Above pip grip */
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity .2s, transform .2s;
+    pointer-events: none;
+    color: var(--icon);
+    padding: 0;
+  }
+  .pip:hover .pip-action-btn {
+      opacity: 1;
+      pointer-events: auto;
+  }
+  .pip-action-btn:hover {
+      transform: scale(1.333);
+  }
+  #pipReplace:hover {
+      transform: translateY(-50%) scale(1.333);
+  }
+  .pip-action-btn .tb-icon {
+      width: 18px;
+      height: 18px;
+  }
+  #pipReplace {
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+  }
+  
   .gv::before,.gh::before{content:"";position:absolute;inset:0;background:#1b1b1f;border-radius:8px;opacity:0;transition:opacity .12s}
   .gv:hover::before,.gh:hover::before{opacity:1}
   .gut-active::before{opacity:1!important}
@@ -653,6 +654,136 @@
   .dotsH,.dotsV{position:absolute;left:50%;top:50%;display:block;background:#303030}
   .dotsH{width:26px;height:10px;transform:translate(-50%, calc(-50% + 1px));mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
   .dotsV{width:10px;height:26px;transform:translate(-50%, -50%);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
+
+  /* Settings Modal Styles */
+  .modal-hidden {
+      display: none !important;
+  }
+  #settingsOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+      display: block;
+  }
+  #settingsModal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1e1e20;
+      border: 1px solid var(--tb-br);
+      border-radius: 16px;
+      padding: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  #settingsModal h2 {
+      margin: 0 0 4px 0;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+  }
+  .settings-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: transparent;
+      color: #888;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+  }
+  .settings-close-btn:hover {
+      color: #fff;
+  }
+  .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--btn-bg);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+  }
+  .setting-item > label:first-of-type {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  }
+  .setting-item .setting-icon {
+      width: 20px;
+      height: 20px;
+      color: #999;
+      display: grid;
+      place-items: center;
+  }
+  .setting-item .setting-icon svg {
+    fill: currentColor;
+  }
+
+  .settings-switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 24px;
+      flex-shrink: 0;
+  }
+  .settings-switch input { display: none; }
+  .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #333;
+      transition: .4s;
+      border-radius: 24px;
+  }
+  .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+  }
+  input:checked + .slider { background-color: var(--settings-accent-color); }
+  input:checked + .slider:before { transform: translateX(18px); }
+
+  .feedback-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-br);
+      color: #ddd;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background .2s;
+      font-weight: 500;
+      margin-top: 8px;
+  }
+  .feedback-btn:hover {
+      background: var(--btn-hov);
+  }
+  .modal-footer {
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      padding-top: 10px;
+      border-top: 1px solid var(--tb-br);
+  }
 
 </style>
 </head>
@@ -667,6 +798,7 @@
           <div class="revealWrap" id="revealWrap">
             <button class="tb-btn" id="btnSwapH" title="Flip Horizontally"><span class="tb-icon stroked" id="icoH"></span></button>
             <button class="tb-btn" id="btnSwapV" title="Flip Vertically"><span class="tb-icon stroked" id="icoV"></span></button>
+            <button class="tb-btn" id="btnSettings" title="Settings"><span class="tb-icon filled" id="icoSettings"></span></button>
           </div>
           <button class="tb-btn" id="btnLayout" title="Change Layout"><span class="tb-icon" id="icoLayout"></span></button>
         </div>
@@ -720,9 +852,7 @@
         </div>
         <div class="pip" id="pipWin">
           <div class="panel videoPanel" id="P-mini" data-panel-id="P_min"></div>
-          <button class="pip-replace" id="pipReplace" title="Swap PiP video">
-            <svg viewBox="0 D 0 24 24" fill="none"><path d="M8 7h10M18 7l-3-3M18 7l-3 3M16 17H6M6 17l3-3M6 17l3 3" stroke="#fff"/></svg>
-          </button>
+          <button class="pip-action-btn" id="pipReplace" title="Swap PiP video"></button>
           <div class="pip-ui"><div class="pip-grip" id="pipGrip"></div></div>
           <div class="pip-arc" id="pipArc" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M38 22 A16 16 0 0 1 22 38"/></svg></div>
         </div>
@@ -731,6 +861,36 @@
         <aside class="panel P-chat" id="P-chat" data-panel-id="chat"></aside>
       </section>
     </div>
+  </div>
+  
+  <div id="settingsOverlay" class="modal-hidden"></div>
+  <div id="settingsModal" class="modal-hidden">
+      <button id="settingsCloseBtn" class="settings-close-btn">&times;</button>
+      <h2>Settings</h2>
+      <div class="setting-item">
+          <label for="autoplayToggle">
+            <span class="setting-icon" id="icoAutoplay"></span>
+            <span>Autoplay videos on load</span>
+          </label>
+          <label class="settings-switch">
+              <input type="checkbox" id="autoplayToggle">
+              <span class="slider"></span>
+          </label>
+      </div>
+      <div class="setting-item">
+          <label for="muteToggle">
+            <span class="setting-icon" id="icoMute"></span>
+            <span>Start videos muted</span>
+          </label>
+          <label class="settings-switch">
+              <input type="checkbox" id="muteToggle">
+              <span class="slider"></span>
+          </label>
+      </div>
+      <a href="mailto:hello@bentotube.com" class="feedback-btn">Give Feedback</a>
+      <div class="modal-footer">
+          Made by Gökhan Çetinkaya with ❤️
+      </div>
   </div>
 
 <script>
@@ -742,10 +902,14 @@
     horz:`<svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     vert:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M8 7l4-4 4 4M16 17l-4 4-4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     chat:`<svg viewBox="0 0 24 24"><path d="M5 6.5A3.5 3.5 0 0 1 8.5 3h7A3.5 3.5 0 0 1 19 6.5v5A3.5 3.5 0 0 1 15.5 15H10l-4 4v-4.5Z"/></svg>`,
-    edit: `<svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>`,
-    copy: `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4H8c-1.1 0-1.99.9-1.99 2L6 21c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/></svg>`,
+    close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+    copy: `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4H8c-1.1 0-1.99.9-1.99 2L6 21c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`,
     add: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
-    extend: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`
+    extend: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`,
+    settings: `<svg viewBox="0 0 24 24"><path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>`,
+    swap: `<svg viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>`,
+    autoplay: `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`,
+    mute: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`
   };
 
   const modeA=document.getElementById('modeA'),modeB=document.getElementById('modeB'),modeP=document.getElementById('modeP');
@@ -758,16 +922,23 @@
   const restoreContainer = document.getElementById('restore-container');
   const btnRestoreChat = document.getElementById('btnRestoreChat');
   const toolbar = document.getElementById('toolbar');
+  
+  const btnSettings = document.getElementById('btnSettings');
+  const settingsOverlay = document.getElementById('settingsOverlay');
+  const settingsModal = document.getElementById('settingsModal');
+  const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+  const autoplayToggle = document.getElementById('autoplayToggle');
+  const muteToggle = document.getElementById('muteToggle');
 
   const origin=location.origin,host=location.hostname;
 
   const platformEncode = { youtube: 'y', twitch: 't', kick: 'k', vimeo: 'v' };
   const platformDecode = { y: 'youtube', t: 'twitch', k: 'kick', v: 'vimeo' };
 
-  let state={layout:0,flipH:false,flipV:false,activeChatTab:1, isChatSplit: false, videos:{A_top:null,A_bot:null,B_left:null,B_right:null,P_big:null,P_min:null}};
+  let state={layout:0,flipH:false,flipV:false,activeChatTab:1, isChatSplit: false, videos:{A_top:null,A_bot:null,B_left:null,B_right:null,P_big:null,P_min:null}, autoplay: true, mute: false};
 
   function parseUrl(url){let m=url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?/);if(m)return{platform:'youtube',id:m[1]};m=url.match(/(?:https?:\/\/)?(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]{3,25})/);if(m)return{platform:'twitch',id:m[1]};m=url.match(/(?:https?:\/\/)?(?:www\.)?kick\.com\/([a-zA-Z0-9_]+)/);if(m)return{platform:'kick',id:m[1]};m=url.match(/(?:https?:\/\/)?(?:www\.)?vimeo\.com\/(\d+)/);if(m)return{platform:'vimeo',id:m[1]};return null}
-  function createEmbed(v){if(!v)return null;const i=document.createElement('iframe');i.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";i.loading='eager';switch(v.platform){case'youtube':i.src=`https://www.youtube.com/embed/${v.id}?autoplay=1&mute=1&rel=0&playsinline=1&modestbranding=1&origin=${origin}`;break;case'twitch':i.src=`https://player.twitch.tv/?channel=${v.id}&parent=${host}&muted=true`;break;case'kick':i.src=`https://player.kick.com/${v.id}?autoplay=true&muted=true`;break;case'vimeo':i.src=`https://player.vimeo.com/video/${v.id}?autoplay=1&muted=1&autopause=0`;break;default:return null}return i}
+  function createEmbed(v, autoplay = true, mute = false){if(!v)return null;const i=document.createElement('iframe');i.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";i.loading='eager';const apNum=autoplay?1:0,apBool=autoplay?'true':'false',muteNum=mute?1:0,muteBool=mute?'true':'false';switch(v.platform){case'youtube':i.src=`https://www.youtube.com/embed/${v.id}?autoplay=${apNum}&mute=${muteNum}&rel=0&playsinline=1&modestbranding=1&origin=${origin}`;break;case'twitch':i.src=`https://player.twitch.tv/?channel=${v.id}&parent=${host}&muted=${muteBool}&autoplay=${apBool}`;break;case'kick':i.src=`https://player.kick.com/${v.id}?autoplay=${apBool}&muted=${muteBool}`;break;case'vimeo':i.src=`https://player.vimeo.com/video/${v.id}?autoplay=${apNum}&muted=${muteNum}&autopause=0`;break;default:return null}return i}
  
   function updateShareUrl() {
     const p = new URLSearchParams();
@@ -785,6 +956,8 @@
     }
     
     if (state.isChatSplit) p.set('cs', '1');
+    if (!state.autoplay) p.set('ap', '0');
+    if (state.mute) p.set('mt', '1');
 
     const s = {};
     s.atf = getVar('--A-top-fr').trim();
@@ -919,7 +1092,7 @@
             state.isChatSplit = false;
             const t1 = v1 ? `<span class="chat-tab-icon">${ICONS.chat}</span><span>1 • ${v1.platform.charAt(0).toUpperCase() + v1.platform.slice(1)}</span>` : `<span class="chat-tab-icon">${ICONS.chat}</span><span>1 • No Video</span>`;
             const t2 = v2 ? `<span class="chat-tab-icon">${ICONS.chat}</span><span>2 • ${v2.platform.charAt(0).toUpperCase() + v2.platform.slice(1)}</span>` : `<span class="chat-tab-icon">${ICONS.chat}</span><span>2 • No Video</span>`;
-       
+        
             container.innerHTML = `
                 <div class="chat-tabs ${!canSplit ? 'has-no-split' : ''}">
                     <div class="chat-tab-indicator"></div>
@@ -940,7 +1113,7 @@
             const tabs=container.querySelectorAll('.chat-tab'), ind=container.querySelector('.chat-tab-indicator');
             if(v1) tabs[0].classList.add(`platform-${v1.platform}`);
             if(v2) tabs[1].classList.add(`platform-${v2.platform}`);
-           
+            
             const setActiveChat = (tabNum) => {
                 state.activeChatTab = tabNum;
                 tabs.forEach((t, i) => t.classList.toggle('active', i + 1 === tabNum));
@@ -948,7 +1121,7 @@
                 ind.classList.add(`pos-${tabNum}`);
                 const currentVideo = tabNum === 1 ? v1 : v2;
                 if (currentVideo) ind.classList.add(`platform-${currentVideo.platform}`);
-               
+                
                 const frames = content.querySelectorAll('iframe');
                 let chatVisible = false;
                 frames.forEach(f => {
@@ -956,7 +1129,7 @@
                     f.style.display = isVisible ? 'block' : 'none';
                     if(isVisible) chatVisible = true;
                 });
-               
+                
                 const ph = content.querySelector('.chat-placeholder');
                 ph.style.display = chatVisible ? 'none' : 'flex';
                 if(!chatVisible){
@@ -1008,12 +1181,14 @@
 
       const vInfo = state.videos[panelId];
       if (vInfo) {
-        const embed=createEmbed(vInfo);
-        if(embed){el.appendChild(embed);const b=document.createElement('button');b.className='edit-video-btn';b.title='Change video';b.innerHTML=`<span class="tb-icon filled">${ICONS.edit}</span>`;b.onclick=e=>{e.stopPropagation();const pMap={A_top:['B_left','P_big'],A_bot:['B_right','P_min'],B_left:['A_top','P_big'],B_right:['A_bot','P_min'],P_big:['A_top','B_left'],P_min:['A_bot','B_right']};const g=pMap[panelId]||[]; g.push(panelId); g.forEach(p=>state.videos[p]=null); renderPanel(panelId); renderPanel('chat'); updateShareUrl()};el.appendChild(b)}
+        const embed=createEmbed(vInfo, state.autoplay, state.mute);
+        if(embed){el.appendChild(embed);const b=document.createElement('button');b.className='edit-video-btn';b.title='Remove video';b.innerHTML=`<span class="tb-icon filled stroked">${ICONS.close}</span>`;b.onclick=e=>{e.stopPropagation();const pMap={A_top:['B_left','P_big'],A_bot:['B_right','P_min'],B_left:['A_top','P_big'],B_right:['A_bot','P_min'],P_big:['A_top','B_left'],P_min:['A_bot','B_right']};const g=pMap[panelId]||[]; g.push(panelId); g.forEach(p=>state.videos[p]=null); renderPanel(panelId); renderPanel('chat'); updateShareUrl()};el.appendChild(b)}
       } else {
         el.classList.add('is-empty');
-        el.innerHTML=`<form class="video-input-form"><input type="text" placeholder="Paste YouTube, Twitch, Kick, Vimeo link..." required><button type="submit" title="Add Video">${ICONS.add}</button></form>`;
-        const f=el.querySelector('form');f.onsubmit=e=>{e.preventDefault();const i=f.querySelector('input'),p=parseUrl(i.value);if(p){const pMap={A_top:['B_left','P_big'],A_bot:['B_right','P_min'],B_left:['A_top','P_big'],B_right:['A_bot','P_min'],P_big:['A_top','B_left'],P_min:['A_bot','B_right']};const g=pMap[panelId]||[]; g.push(panelId); g.forEach(id=>state.videos[id]=p); renderPanel(panelId); renderPanel('chat'); updateShareUrl()}else{i.style.borderColor='red';setTimeout(()=>i.style.borderColor='',2000)}}
+        el.innerHTML=`<form class="video-input-form"><div class="input-wrapper"><input type="text" placeholder="Paste YouTube, Twitch, Kick, Vimeo link..." required><button type="button" class="paste-btn">Paste</button></div><button type="submit" title="Add Video">${ICONS.add}</button></form>`;
+        const f=el.querySelector('form'), i=f.querySelector('input'), pBtn=f.querySelector('.paste-btn');
+        f.onsubmit=e=>{e.preventDefault();const p=parseUrl(i.value);if(p){const pMap={A_top:['B_left','P_big'],A_bot:['B_right','P_min'],B_left:['A_top','P_big'],B_right:['A_bot','P_min'],P_big:['A_top','B_left'],P_min:['A_bot','B_right']};const g=pMap[panelId]||[]; g.push(panelId); g.forEach(id=>state.videos[id]=p); renderPanel(panelId); renderPanel('chat'); updateShareUrl()}else{i.style.borderColor='red';setTimeout(()=>i.style.borderColor='',2000)}}
+        pBtn.onclick=async()=>{try{const text=await navigator.clipboard.readText();i.value=text;f.requestSubmit()}catch(err){console.error('Failed to read clipboard contents: ',err)}};
       }
     })
   }
@@ -1041,6 +1216,8 @@
     }
     
     state.isChatSplit = p.get('cs') === '1';
+    state.autoplay = p.get('ap') !== '0';
+    state.mute = p.get('mt') === '1';
 
     if(p.get('atf')) setVar('--A-top-fr', p.get('atf'));
     if(p.get('acw')) setVar('--A-chat-w', p.get('acw') + 'px');
@@ -1074,7 +1251,7 @@
         applyFlipClasses();
         void icoLayout.offsetWidth; // Force reflow
         icoLayout.style.transition = '';
-       
+        
         renderAllPanels();
         updateChatZeroStates();
         updateShareUrl();
@@ -1133,15 +1310,16 @@
     btnV.style.display = state.layout === 2 || isBClosed ? 'none' : 'grid';
 
     const revealWrap = document.getElementById('revealWrap');
-    let visibleButtons = 0;
+    let visibleButtons = 1; // for Settings button
     if (btnH.style.display !== 'none') visibleButtons++;
     if (btnV.style.display !== 'none') visibleButtons++;
 
-    revealWrap.classList.remove('has1', 'has2');
+    revealWrap.classList.remove('has1', 'has2', 'has3');
     if (visibleButtons === 1) revealWrap.classList.add('has1');
     else if (visibleButtons === 2) revealWrap.classList.add('has2');
+    else if (visibleButtons === 3) revealWrap.classList.add('has3');
     
-    toolbar.classList.toggle('no-reveal', visibleButtons === 0);
+    toolbar.classList.toggle('no-reveal', false); // Always reveal since settings is present
   }
 
   ;(function(){let d=false;const t=document.getElementById('A-gv');t.addEventListener('pointerdown',e=>{if(!modeA.classList.contains('active'))return;d=true;startDrag(e,t);});addEventListener('pointermove',e=>{if(!d||!modeA.classList.contains('active'))return;const a=modeA.getBoundingClientRect(),o=t.getBoundingClientRect().width,n=parseFloat(getComputedStyle(modeA).gap)||0,i=a.width-o-n,l=e.clientX-a.left,c=!modeA.classList.contains('flip');let s;s=c?i-clamp(l,320,i):clamp(l,0,i-320);if(Math.abs((i-s)/i-0.5)<=.01)s=.5*i;if(s<2)s=0;setVar('--A-chat-w',`${Math.round(s)}px`);updateChatZeroStates();updateShareUrl()});addEventListener('pointerup',e=>{if(d){d=false;endDrag(e,t);}});})();
@@ -1209,11 +1387,37 @@
     }
   };
 
+  function showSettingsModal(show) {
+      settingsOverlay.classList.toggle('modal-hidden', !show);
+      settingsModal.classList.toggle('modal-hidden', !show);
+  }
+
+  btnSettings.onclick = () => showSettingsModal(true);
+  settingsCloseBtn.onclick = () => showSettingsModal(false);
+  settingsOverlay.onclick = () => showSettingsModal(false);
+
+  autoplayToggle.onchange = () => {
+      state.autoplay = autoplayToggle.checked;
+      updateShareUrl();
+  };
+
+  muteToggle.onchange = () => {
+      state.mute = muteToggle.checked;
+      updateShareUrl();
+  };
+
+
   function init(){
     icoH.innerHTML=ICONS.horz;icoV.innerHTML=ICONS.vert;
     document.getElementById('icoCopy').innerHTML=ICONS.copy;
     document.getElementById('icoRestore').innerHTML = ICONS.chat;
+    document.getElementById('icoSettings').innerHTML = ICONS.settings;
+    document.getElementById('icoAutoplay').innerHTML = ICONS.autoplay;
+    document.getElementById('icoMute').innerHTML = ICONS.mute;
+    pipReplace.innerHTML = `<span class="tb-icon filled">${ICONS.swap}</span>`;
     loadStateFromUrl();
+    autoplayToggle.checked = state.autoplay;
+    muteToggle.checked = state.mute;
     normalizeAChatPx();
     updateChatZeroStates();
     addEventListener('resize',()=>{if(modeP.classList.contains('active'))clampPip();updateChatZeroStates();});
@@ -1224,5 +1428,7 @@
 </script>
 </body>
 </html>
+
+
 
 
