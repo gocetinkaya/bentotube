@@ -577,7 +577,8 @@
   .A .A-gv{grid-area:A-gv}
   .A .A-chat{grid-area:A-chat}
   .A-gv,.B-gv,.P-gv{width:var(--gut);cursor:col-resize;position:relative}
-  .A-gh,.B-gh{height:var(--gut);cursor:row-resize;position:relative}
+  .A-gh{height:var(--A-gh-h);cursor:row-resize;position:relative}
+  .B-gh{height:var(--gut);cursor:row-resize;position:relative}
   .B{grid-template-columns:minmax(320px,calc(var(--B-left-fr)*(100% - var(--gut)))) var(--gut) minmax(320px,calc((1 - var(--B-left-fr))*(100% - var(--gut))));grid-template-rows:minmax(0,calc(var(--B-top-fr)*(100% - var(--B-gut-h)))) var(--B-gut-h) minmax(0,calc((1 - var(--B-top-fr))*(100% - var(--B-gut-h))));grid-template-areas:"B-left B-gv B-right" "B-gh B-gh B-gh" "B-chat B-chat B-chat"}
   .B.flip{grid-template-rows:minmax(0,calc((1 - var(--B-top-fr))*(100% - var(--B-gut-h)))) var(--B-gut-h) minmax(0,calc(var(--B-top-fr)*(100% - var(--B-gut-h))));grid-template-areas:"B-chat B-chat B-chat" "B-gh B-gh B-gh" "B-left B-gv B-right"}
   .B .B-left{grid-area:B-left}
@@ -652,7 +653,7 @@
   .gh.chat-closed::before,.gv.chat-closed::before{opacity:0!important;display:none}
   .chat-closed .dotsH,.chat-closed .dotsV{display:none!important;visibility:hidden}
   .dotsH,.dotsV{position:absolute;left:50%;top:50%;display:block;background:#303030}
-  .dotsH{width:26px;height:10px;transform:translate(-50%, calc(-50% + 1px));mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
+  .dotsH{width:26px;height:10px;transform:translate(-50%, -50%);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='13' cy='5' r='3'/%3E%3Ccircle cx='21' cy='5' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
   .dotsV{width:10px;height:26px;transform:translate(-50%, -50%);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 26'%3E%3Ccircle cx='5' cy='5' r='3'/%3E%3Ccircle cx='5' cy='13' r='3'/%3E%3Ccircle cx='5' cy='21' r='3'/%3E%3C/svg%3E") center/contain no-repeat}
 
   /* Settings Modal Styles */
@@ -1428,6 +1429,7 @@
 </script>
 </body>
 </html>
+
 
 
 
